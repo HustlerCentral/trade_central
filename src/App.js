@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { render } from "react-dom";
+import CanvasJSReact from "./canvasjs.react";
+// eslint-disable-next-line no-unused-vars
+import {getJson} from "./Tabs/Inventory.mjs";
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+    
+  async render() {
+    getJson();
+    var test = getJson();
+    let testw = await test;
+    const options = {
+      title: {
+        text: "Basic Column Chart in React"
+      },
+      data: [{				
+                type: "column",
+        dataPoints: [
+          { label: "Apple", y: 2 }, 
+                    { label: "Orange", y: 200  },
+                    { label: "Banana", y: 25  },
+                    { label: "Mango",  y: 30  },
+                    { label: "Grape",  y: 28  }
+                ]
+       }]
+   }
+		
+   return (
+      <div>
+       <CanvasJSChart options={options}
+
+            /* onRef = {ref => this.chart = ref} */
+        />
+      </div>
+    );
+  }
 }
 
+render(<App />, document.getElementById("root"));
+
 export default App;
+export {test};
